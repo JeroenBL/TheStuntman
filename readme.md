@@ -48,7 +48,7 @@ _TheStuntman_ uses the _.NET standard_ version of the [___Bogus___](https://gith
 3. Import the module
 
 ```powershell
-Import-Module 'TheStuntman.psm1'
+Import-Module 'TheStuntman.psd1'
 ```
 
 ### Using the module
