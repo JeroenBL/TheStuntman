@@ -1,3 +1,5 @@
+[![PSScriptAnalyzer](https://github.com/JeroenBL/TheStuntman/actions/workflows/powershell.yml/badge.svg)](https://github.com/JeroenBL/TheStuntman/actions/workflows/powershell.yml)
+
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&duration=3000&pause=10&color=C023F7&center=true&vCenter=true&multiline=true&repeat=false&width=435&height=80&lines=Who+is+always+happy+to+testdrive;your+application+%3F;It's+...)](https://git.io/typing-svg)
 
 # The Stuntman
