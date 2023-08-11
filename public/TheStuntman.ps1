@@ -1,5 +1,6 @@
 $previouslyCreated = [System.Collections.Generic.List[Object]]::new()
 
+#region public functions
 function New-Stuntman {
     [CmdletBinding()]
     param(
@@ -123,13 +124,43 @@ function New-StuntDataGenerationObject {
         }
     }
 }
+#endregion public functions
+
+#region private functions and helper classes
+function New-StuntmanContract {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory)]
+        [Bogus.Faker]
+        $Faker
+    )
+
+    try {
+        [PSCustomObject]@{
+            StartDate    = $Faker.Date.Past(5)
+            EndDate      = $Faker.Date.Future(5)
+            HoursPerWeek = $Faker.PickRandom(8, 16, 20, 32, 40)
+            Department   = $Faker.PickRandom([Department]::new())
+            JobTitle     = $Faker.Name.JobTitle()
+            JobArea      = $Faker.Name.JobArea()
+            JobType      = $Faker.Name.JobType()
+            CompanyName  = $Faker.Person.Company.Name
+            CatchPhrase  = $Faker.Person.Company.CatchPhrase
+            Bs           = $Faker.Person.Company.Bs
+        }
+    } catch {
+        $PSCmdlet.ThrowTerminatingError($_)
+    }
+}
 
 class ArgumentCompletionsSupportedLocales: System.Management.Automation.ArgumentCompleterAttribute {
     ArgumentCompletionsSupportedLocales() : base({
         [SupportedLocales] | Get-Member -Static -Type Properties | Select-Object -ExpandProperty Name
     }) { }
 }
+#endregion priave functions and helper classes
 
+#region enums
 enum LoremDataSet {
     Sentences
 }
@@ -230,33 +261,6 @@ enum SystemDataGenerationType {
     ApplePushToken
     BlackBerryPin
 }
-
-function New-StuntmanContract {
-    [CmdletBinding()]
-    param (
-        [Parameter(Mandatory)]
-        [Bogus.Faker]
-        $Faker
-    )
-
-    try {
-        [PSCustomObject]@{
-            StartDate    = $Faker.Date.Past(5)
-            EndDate      = $Faker.Date.Future(5)
-            HoursPerWeek = $Faker.PickRandom(8, 16, 20, 32, 40)
-            Department   = $Faker.PickRandom([Department]::new())
-            JobTitle     = $Faker.Name.JobTitle()
-            JobArea      = $Faker.Name.JobArea()
-            JobType      = $Faker.Name.JobType()
-            CompanyName  = $Faker.Person.Company.Name
-            CatchPhrase  = $Faker.Person.Company.CatchPhrase
-            Bs           = $Faker.Person.Company.Bs
-        }
-    } catch {
-        $PSCmdlet.ThrowTerminatingError($_)
-    }
-}
-
 enum Department {
     Engineering
     HR
@@ -272,5 +276,4 @@ enum Department {
     Recruitment
     Management
 }
-
-
+#endregion enums
